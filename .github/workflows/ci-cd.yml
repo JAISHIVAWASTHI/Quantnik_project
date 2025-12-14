@@ -11,7 +11,7 @@ defaults:
     working-directory: ./
 
 jobs:
-  # The 'test' job has been removed as per your request.
+  # The 'test' job has been removed as per your request .
   
   build-and-deploy:
     name: CI-CD calculator
