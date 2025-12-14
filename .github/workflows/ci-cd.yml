@@ -30,7 +30,6 @@ jobs:
         cache: 'npm'
     
     - name: Install dependencies
-      # Use 'npm install' or 'npm ci' if you have a package-lock.json.
       run: npm install
     
     - name: Create CNAME file
