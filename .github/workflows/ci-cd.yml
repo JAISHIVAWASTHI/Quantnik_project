@@ -14,7 +14,7 @@ jobs:
   # The 'test' job has been removed as per your request.
   
   build-and-deploy:
-    name: Build and Deploy
+    name: CI-CD calculator
     # Removed 'needs: test' since the test job is gone.
     # The 'if' condition remains to ensure deployment only happens on the specified branches (main/master).
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
@@ -32,9 +32,6 @@ jobs:
     - name: Install dependencies
       # Use 'npm install' or 'npm ci' if you have a package-lock.json.
       run: npm install
-    
-    - name: Build
-      run: npm run build
     
     - name: Create CNAME file
       # This step should run BEFORE the deploy action if you want to include CNAME in the deployment.
