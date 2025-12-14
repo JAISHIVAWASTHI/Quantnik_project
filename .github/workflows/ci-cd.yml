@@ -11,35 +11,12 @@ defaults:
     working-directory: ./
 
 jobs:
-  test:
-    name: Test
-    runs-on: ubuntu-latest
-    
-    strategy:
-      matrix:
-        node-version: [16.x, 18.x]
-    
-    steps:
-    - uses: actions/checkout@v3
-    
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    
-    - name: Install dependencies
-      run: npm ci
-    
-    - name: Run tests
-      run: npm test -- --watchAll=false --coverage
-    
-    - name: Lint
-      run: npm run lint
+  # The 'test' job has been removed as per your request.
   
   build-and-deploy:
     name: Build and Deploy
-    needs: test
+    # Removed 'needs: test' since the test job is gone.
+    # The 'if' condition remains to ensure deployment only happens on the specified branches (main/master).
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     
@@ -53,25 +30,32 @@ jobs:
         cache: 'npm'
     
     - name: Install dependencies
+      # Use 'npm install' or 'npm ci' if you have a package-lock.json.
       run: npm ci
     
     - name: Build
       run: npm run build
     
+    - name: Create CNAME file
+      # This step should run BEFORE the deploy action if you want to include CNAME in the deployment.
+      # The original file had a logical error as it tried to access a 'build' directory after the deploy action.
+      # We'll run it here, but it assumes your 'build' folder is created by 'npm run build'.
+      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+      run: |
+        mkdir -p build # Ensure build directory exists before writing to it
+        echo "${{ secrets.DOMAIN_NAME || 'calculator-app.com' }}" > ./build/CNAME
+        
+    - name: Create .nojekyll file
+      # Same as CNAME, this should run before the deploy action.
+      run: touch ./build/.nojekyll
+
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@v4
       with:
         folder: build
         branch: gh-pages
         clean: true
+        # CNAME and .nojekyll should now be correctly excluded/included in the deployment
         clean-exclude: |
           CNAME
           .nojekyll
-    
-    - name: Create CNAME file
-      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
-      run: |
-        echo "${{ secrets.DOMAIN_NAME || 'calculator-app.com' }}" > ./build/CNAME
-      
-    - name: Create .nojekyll file
-      run: touch ./build/.nojekyll
