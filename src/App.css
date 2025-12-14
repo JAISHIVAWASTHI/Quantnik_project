@@ -1,0 +1,169 @@
+/* Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* App Container */
+.app {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  padding: 20px;
+}
+
+/* Heading */
+h1 {
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Calculator Container */
+.calculator {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 320px;
+  overflow: hidden;
+  padding: 20px;
+  margin: 0 auto;
+}
+
+/* Display Area */
+.display {
+  background: #f8f9fa;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 15px;
+  text-align: right;
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Input and Result Text */
+.input {
+  font-size: 1.2rem;
+  color: #666;
+  min-height: 30px;
+  word-wrap: break-word;
+}
+
+.result {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+  margin-top: 10px;
+  min-height: 40px;
+  word-wrap: break-word;
+}
+
+/* Buttons Grid */
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+/* Button Styles */
+.btn {
+  background: #f0f0f0;
+  border: none;
+  border-radius: 10px;
+  padding: 15px 0;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #333;
+  font-weight: 500;
+}
+
+/* Hover Effect */
+.btn:hover {
+  background: #e0e0e0;
+  transform: translateY(-2px);
+}
+
+/* Active Effect */
+.btn:active {
+  transform: translateY(0);
+}
+
+/* Operator Buttons */
+.btn:nth-child(4n),
+.btn:nth-child(19) {
+  background: #ff9500;
+  color: white;
+}
+
+/* Equals Button */
+.equals {
+  background: #28a745 !important;
+  grid-column: span 2;
+}
+
+/* Clear Button */
+.clear {
+  background: #dc3545 !important;
+  color: white;
+  grid-column: span 4;
+  margin-top: 5px;
+}
+
+/* Responsive Design */
+@media (max-width: 400px) {
+  .calculator {
+    max-width: 100%;
+    padding: 15px;
+  }
+  
+  .btn {
+    padding: 12px 0;
+    font-size: 1.1rem;
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .app {
+    background-color: #121212;
+  }
+  
+  h1 {
+    color: #f5f5f5;
+  }
+  
+  .calculator {
+    background: #1e1e1e;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  }
+  
+  .display {
+    background: #2d2d2d;
+  }
+  
+  .input {
+    color: #a0a0a0;
+  }
+  
+  .result {
+    color: #ffffff;
+  }
+  
+  .btn {
+    background: #333;
+    color: #f5f5f5;
+  }
+  
+  .btn:hover {
+    background: #444;
+  }
+}
